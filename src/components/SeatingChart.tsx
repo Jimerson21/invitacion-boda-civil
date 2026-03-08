@@ -22,39 +22,59 @@ const GUESTS = [
 const SeatingChart = () => {
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
 
-  // 15 seats: 5 on each long side, 2 on left short end, 3 on right short end (head)
-  const topSeats = GUESTS.slice(2, 7);    // seats 3-7
-  const bottomSeats = GUESTS.slice(7, 12); // seats 8-12
-  const leftSeats = GUESTS.slice(12, 14);  // seats 13-14
-  const rightSeats = [GUESTS[0], GUESTS[1], GUESTS[14]]; // seats 1,2,15
+  const getGuest = (seat: number) => GUESTS.find((g) => g.seat === seat)!;
 
-  const SeatButton = ({ guest }: { guest: typeof GUESTS[0] }) => {
-    const isSelected = selectedSeat === guest.seat;
-    const isCouple = guest.seat === 1 || guest.seat === 2;
+  // Layout from notebook: left col 7-1 (top to bottom), right col 15-9, seat 8 bottom center
+  const leftSeats = [7, 6, 5, 4, 3, 2, 1];
+  const rightSeats = [15, 14, 12, 13, 10, 11, 9];
+  const bottomSeat = 8;
+
+  const SeatButton = ({ seatNum, direction }: { seatNum: number; direction: "left" | "right" | "bottom" }) => {
+    const guest = getGuest(seatNum);
+    const isSelected = selectedSeat === seatNum;
+    const isCouple = seatNum === 1 || seatNum === 8;
+
+    const isHorizontal = direction === "bottom";
 
     return (
       <motion.button
-        onClick={() => setSelectedSeat(isSelected ? null : guest.seat)}
-        className={`relative flex flex-col items-center gap-0.5 group`}
-        whileHover={{ scale: 1.1 }}
+        onClick={() => setSelectedSeat(isSelected ? null : seatNum)}
+        className={`relative flex ${isHorizontal ? "flex-col" : direction === "left" ? "flex-row-reverse" : "flex-row"} items-center gap-1 group`}
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
       >
-        {/* Chair */}
+        {/* Chair back */}
         <div
-          className={`w-9 h-9 rounded-full border-2 flex items-center justify-center text-xs font-display font-bold transition-all shadow-sm ${
-            isSelected
-              ? "bg-primary text-primary-foreground border-primary scale-110"
-              : isCouple
+          className={`flex items-center justify-center rounded-md border-2 font-display text-xs font-bold transition-all ${
+            isCouple
               ? "bg-gold text-primary-foreground border-gold"
-              : "bg-card text-foreground border-border hover:border-primary"
-          }`}
+              : isSelected
+              ? "bg-primary text-primary-foreground border-primary"
+              : "bg-olive/20 text-foreground border-olive/50 hover:border-primary"
+          } ${isHorizontal ? "w-9 h-8" : "w-8 h-9"}`}
         >
-          {guest.seat}
+          {seatNum}
         </div>
-        {/* Name tooltip */}
+        {/* Chair seat (cushion) */}
+        <div
+          className={`rounded-sm border-2 ${
+            isCouple
+              ? "border-gold bg-gold/30"
+              : isSelected
+              ? "border-primary bg-primary/20"
+              : "border-olive/40 bg-olive/10"
+          } ${isHorizontal ? "w-7 h-3" : "w-3 h-7"}`}
+        />
+        {/* Name */}
         <span
-          className={`text-[10px] font-body leading-tight text-center max-w-[56px] truncate transition-all ${
+          className={`absolute text-[9px] font-body leading-tight text-center whitespace-nowrap transition-all ${
             isSelected ? "text-primary font-bold" : "text-muted-foreground"
+          } ${
+            direction === "left"
+              ? "right-full mr-1"
+              : direction === "right"
+              ? "left-full ml-1"
+              : "top-full mt-0.5"
           }`}
         >
           {guest.name}
@@ -64,41 +84,35 @@ const SeatingChart = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      {/* Top row */}
-      <div className="flex justify-center gap-3">
-        {topSeats.map((g) => (
-          <SeatButton key={g.seat} guest={g} />
-        ))}
-      </div>
-
-      {/* Table */}
-      <div className="flex items-center gap-3">
-        {/* Left end seats */}
-        <div className="flex flex-col gap-3">
-          {leftSeats.map((g) => (
-            <SeatButton key={g.seat} guest={g} />
+    <div className="flex flex-col items-center gap-4">
+      <div className="flex items-center gap-2">
+        {/* Left column of seats */}
+        <div className="flex flex-col items-end gap-2">
+          {leftSeats.map((s) => (
+            <SeatButton key={s} seatNum={s} direction="left" />
           ))}
         </div>
 
-        {/* Table surface */}
-        <div className="w-48 h-24 rounded-xl bg-olive/20 border-2 border-olive/40 flex items-center justify-center shadow-inner">
-          <span className="font-elegant text-sm text-olive italic">Mesa Principal</span>
+        {/* Table */}
+        <div className="w-28 sm:w-36 rounded-xl bg-olive/25 border-2 border-olive/50 flex items-center justify-center shadow-inner"
+          style={{ height: `${leftSeats.length * 44 + (leftSeats.length - 1) * 8}px` }}
+        >
+          <span className="font-elegant text-sm text-olive italic [writing-mode:vertical-rl] rotate-180">
+            Mesa Principal
+          </span>
         </div>
 
-        {/* Right end seats (head of table - couple) */}
-        <div className="flex flex-col gap-2">
-          {rightSeats.map((g) => (
-            <SeatButton key={g.seat} guest={g} />
+        {/* Right column of seats */}
+        <div className="flex flex-col items-start gap-2">
+          {rightSeats.map((s) => (
+            <SeatButton key={s} seatNum={s} direction="right" />
           ))}
         </div>
       </div>
 
-      {/* Bottom row */}
-      <div className="flex justify-center gap-3">
-        {bottomSeats.map((g) => (
-          <SeatButton key={g.seat} guest={g} />
-        ))}
+      {/* Bottom seat (8) */}
+      <div className="flex justify-center -mt-1">
+        <SeatButton seatNum={bottomSeat} direction="bottom" />
       </div>
 
       {/* Selected info */}
@@ -106,13 +120,13 @@ const SeatingChart = () => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-card border border-border rounded-xl px-5 py-3 text-center shadow-sm"
+          className="bg-card border border-border rounded-xl px-5 py-3 text-center shadow-sm mt-2"
         >
           <p className="font-display text-sm font-semibold text-foreground">
             Asiento #{selectedSeat}
           </p>
           <p className="font-elegant text-base text-primary">
-            {GUESTS.find((g) => g.seat === selectedSeat)?.name}
+            {getGuest(selectedSeat).name}
           </p>
         </motion.div>
       )}
@@ -120,11 +134,11 @@ const SeatingChart = () => {
       {/* Legend */}
       <div className="flex gap-4 text-[11px] font-body text-muted-foreground">
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-gold border border-gold" />
+          <div className="w-3 h-3 rounded-sm bg-gold border border-gold" />
           Novios
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-card border-2 border-border" />
+          <div className="w-3 h-3 rounded-sm bg-olive/20 border-2 border-olive/50" />
           Invitados
         </div>
       </div>
