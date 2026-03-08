@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Clock, Calendar, Shirt, Heart, ExternalLink } from "lucide-react";
-import heroImg from "@/assets/wedding-hero.jpg";
+import { MapPin, Clock, Calendar, Shirt, Heart, ExternalLink, Users } from "lucide-react";
+import couplePhoto from "@/assets/couple-photo.jpg";
 import coupleImg from "@/assets/wedding-couple.png";
 import botanicalFrame from "@/assets/botanical-frame.png";
 import EnvelopeOpener from "./EnvelopeOpener";
 import CountdownTimer from "./CountdownTimer";
 import RSVPForm from "./RSVPForm";
 import PetalOverlay from "./PetalOverlay";
+import SeatingChart from "./SeatingChart";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -103,7 +104,7 @@ const WeddingInvitation = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <img src={heroImg} alt="Jimerson & Katerine" className="w-full h-64 object-cover" />
+          <img src={couplePhoto} alt="Jimerson & Katerine" className="w-full h-72 object-cover" />
         </motion.div>
 
         {/* Quote */}
@@ -208,6 +209,20 @@ const WeddingInvitation = () => {
 
         <Divider />
 
+        {/* Seating Chart */}
+        <Section className="text-center">
+          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+            <Users className="w-5 h-5 text-olive" />
+          </div>
+          <h2 className="font-display text-2xl font-semibold text-foreground mb-2">Distribución de la Mesa</h2>
+          <p className="font-elegant text-sm text-muted-foreground mb-6">
+            Toca un asiento para ver quién se sienta ahí
+          </p>
+          <SeatingChart />
+        </Section>
+
+        <Divider />
+
         {/* RSVP */}
         <Section className="">
           <div className="bg-olive-dark rounded-2xl p-6 shadow-lg">
@@ -218,41 +233,6 @@ const WeddingInvitation = () => {
             <div className="bg-cream rounded-xl p-5">
               <RSVPForm />
             </div>
-          </div>
-        </Section>
-
-        {/* Share buttons */}
-        <Section className="text-center">
-          <h2 className="font-display text-lg font-semibold text-foreground mb-4">Compartir invitación</h2>
-          <div className="flex justify-center gap-3">
-            <motion.a
-              href={`https://wa.me/?text=${encodeURIComponent("¡Estás invitado a nuestra boda civil! Jimerson & Katerine - 24 de Abril 2026 💚 " + window.location.href)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-body text-sm font-semibold shadow hover:opacity-90 transition"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              WhatsApp
-            </motion.a>
-            <motion.button
-              onClick={() => {
-                if (navigator.share) {
-                  navigator.share({
-                    title: "Boda Jimerson & Katerine",
-                    text: "¡Estás invitado a nuestra boda civil!",
-                    url: window.location.href,
-                  });
-                } else {
-                  navigator.clipboard.writeText(window.location.href);
-                }
-              }}
-              className="px-5 py-2.5 rounded-lg border border-primary text-primary font-body text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-all"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Copiar enlace
-            </motion.button>
           </div>
         </Section>
 
