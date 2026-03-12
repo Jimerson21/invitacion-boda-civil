@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Gem } from "lucide-react";
 
 const GUESTS = [
-  { seat: 1, name: "Jimerson" },
-  { seat: 2, name: "Katerine" },
-  { seat: 3, name: "Mamá Rosa" },
-  { seat: 4, name: "Papá Carlos" },
-  { seat: 5, name: "Tía María" },
-  { seat: 6, name: "Tío Juan" },
-  { seat: 7, name: "Andrea" },
-  { seat: 8, name: "Luis" },
-  { seat: 9, name: "Sofía" },
-  { seat: 10, name: "Pedro" },
-  { seat: 11, name: "Carmen" },
-  { seat: 12, name: "Miguel" },
-  { seat: 13, name: "Valentina" },
-  { seat: 14, name: "Gabriel" },
-  { seat: 15, name: "Isabella" },
+  { seat: 1, name: "Katerine" },
+  { seat: 2, name: "Daily" },
+  { seat: 3, name: "Margarita" },
+  { seat: 4, name: "Violeta" },
+  { seat: 5, name: "Armando" },
+  { seat: 6, name: "Agustin" },
+  { seat: 7, name: "Mibzar" },
+  { seat: 8, name: "Jimerson" },
+  { seat: 9, name: "Jendrick" },
+  { seat: 10, name: "Hilda" },
+  { seat: 11, name: "Nena" },
+  { seat: 12, name: "Jickson" },
+  { seat: 13, name: "Diosangel" },
+  { seat: 14, name: "Jimmy" },
+  { seat: 15, name: "Lisbeth" },
 ];
 
 const SeatingChart = () => {
@@ -26,7 +27,7 @@ const SeatingChart = () => {
 
   // Layout from notebook: left col 7-1 (top to bottom), right col 15-9, seat 8 bottom center
   const leftSeats = [7, 6, 5, 4, 3, 2, 1];
-  const rightSeats = [15, 14, 12, 13, 10, 11, 9];
+  const rightSeats = [15, 14, 13, 12, 11, 10, 9];
   const bottomSeat = 8;
 
   const SeatButton = ({ seatNum, direction }: { seatNum: number; direction: "left" | "right" | "bottom" }) => {
@@ -97,8 +98,8 @@ const SeatingChart = () => {
         <div className="w-28 sm:w-36 rounded-xl bg-olive/25 border-2 border-olive/50 flex items-center justify-center shadow-inner"
           style={{ height: `${leftSeats.length * 44 + (leftSeats.length - 1) * 8}px` }}
         >
-          <span className="font-elegant text-sm text-olive italic [writing-mode:vertical-rl] rotate-180">
-            Mesa Principal
+          <span className="font-elegant text-2xl text-olive italic [writing-mode:vertical-rl]">
+            <Gem />
           </span>
         </div>
 

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Clock, Calendar, Shirt, Heart, ExternalLink, Users } from "lucide-react";
+import { MapPin, Clock, Calendar, Shirt, Heart, ExternalLink, Martini } from "lucide-react";
 import couplePhoto from "@/assets/couple-photo.jpg";
-import coupleImg from "@/assets/wedding-couple.png";
 import botanicalFrame from "@/assets/botanical-frame.png";
 import EnvelopeOpener from "./EnvelopeOpener";
 import CountdownTimer from "./CountdownTimer";
@@ -45,7 +44,7 @@ const WeddingInvitation = () => {
           <motion.img
             src={botanicalFrame}
             alt=""
-            className="absolute inset-0 w-full h-full object-contain opacity-15 pointer-events-none"
+            className="absolute top-1 left-1 inset-0 w-full h-full object-contain opacity-15 pointer-events-none"
             initial={{ opacity: 0, scale: 1.1 }}
             whileInView={{ opacity: 0.15, scale: 1 }}
             viewport={{ once: true }}
@@ -53,14 +52,14 @@ const WeddingInvitation = () => {
           />
           <div className="relative z-10">
             <motion.p
-              className="font-elegant text-sm uppercase tracking-[0.3em] text-muted-foreground mb-6"
+              className="font-medium text-[10px] uppercase tracking-[0.3em] mb-4"
               {...fadeUp}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
               Nuestra Boda Civil
             </motion.p>
             <motion.h1
-              className="font-script text-6xl text-olive-dark leading-tight"
+              className="font-script text-4xl text-olive-dark leading-tight"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -69,7 +68,7 @@ const WeddingInvitation = () => {
               Jimerson
             </motion.h1>
             <motion.p
-              className="font-script text-3xl text-olive-light my-2"
+              className="font-script text-3xl text-olive-light"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -78,7 +77,7 @@ const WeddingInvitation = () => {
               &
             </motion.p>
             <motion.h1
-              className="font-script text-6xl text-olive-dark leading-tight"
+              className="font-script text-4xl text-olive-dark leading-tight"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -150,7 +149,7 @@ const WeddingInvitation = () => {
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
               <Clock className="w-5 h-5 text-olive" />
             </div>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-1">10:00 AM</h2>
+            <h2 className="font-display text-lg font-semibold text-foreground mb-1">10:00 am</h2>
           </div>
 
           <div>
@@ -180,19 +179,6 @@ const WeddingInvitation = () => {
 
         <Divider />
 
-        {/* Couple illustration */}
-        <Section className="text-center">
-          <motion.img
-            src={coupleImg}
-            alt="Ilustración de pareja"
-            className="w-40 h-40 mx-auto object-contain"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          />
-        </Section>
-
         {/* Dress code */}
         <Section className="text-center">
           <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
@@ -212,12 +198,9 @@ const WeddingInvitation = () => {
         {/* Seating Chart */}
         <Section className="text-center">
           <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-            <Users className="w-5 h-5 text-olive" />
+            <Martini className="w-5 h-5 text-olive" />
           </div>
-          <h2 className="font-display text-2xl font-semibold text-foreground mb-2">Distribución de la Mesa</h2>
-          <p className="font-elegant text-sm text-muted-foreground mb-6">
-            Toca un asiento para ver quién se sienta ahí
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-foreground mb-6">Almuerzo de Celebración</h2>
           <SeatingChart />
         </Section>
 
@@ -244,7 +227,7 @@ const WeddingInvitation = () => {
           <p className="font-script text-4xl text-cream mb-2">Jimerson & Katerine</p>
           <p className="font-elegant text-sm text-cream/70">24 de Abril de 2026 · Barquisimeto</p>
           <div className="mt-4 flex justify-center">
-            <Heart className="w-5 h-5 text-gold" fill="hsl(38, 60%, 55%)" />
+            <Heart className="w-5 h-5 text-white" fill="hsl(0, 0.00%, 100.00%)" />
           </div>
           <p className="font-elegant text-xs text-cream/50 mt-4">
             ¡Esperamos contar con tu presencia!
