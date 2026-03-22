@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Clock, Calendar, Shirt, Heart, ExternalLink, Martini } from "lucide-react";
+import { MapPin, Clock, Calendar, Shirt, Heart, ExternalLink, Martini, Calendar1 } from "lucide-react";
 import couplePhoto from "@/assets/couple-photo.jpg";
 import botanicalFrame from "@/assets/botanical-frame.png";
 import EnvelopeOpener from "./EnvelopeOpener";
 import CountdownTimer from "./CountdownTimer";
-import RSVPForm from "./RSVPForm";
 import PetalOverlay from "./PetalOverlay";
 import SeatingChart from "./SeatingChart";
 
@@ -40,7 +39,7 @@ const WeddingInvitation = () => {
 
       <div className="min-h-screen bg-cream max-w-md mx-auto relative overflow-hidden">
         {/* Hero */}
-        <Section className="relative text-center pt-16 pb-8">
+        <Section className="relative text-center pt-16 pb-14">
           <motion.img
             src={botanicalFrame}
             alt=""
@@ -51,13 +50,11 @@ const WeddingInvitation = () => {
             transition={{ duration: 1.5 }}
           />
           <div className="relative z-10">
-            <motion.p
-              className="font-medium text-[10px] uppercase tracking-[0.3em] mb-4"
-              {...fadeUp}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              Nuestra Boda Civil
-            </motion.p>
+            <motion.div {...fadeUp} transition={{ delay: 0.2, duration: 0.8 }} className="pb-12">
+              <p className="font-medium text-[12px] uppercase tracking-[0.3em]">
+                Nuestra Boda Civil
+              </p>
+            </motion.div>
             <motion.h1
               className="font-script text-4xl text-olive-dark leading-tight"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -90,7 +87,7 @@ const WeddingInvitation = () => {
               {...fadeUp}
               transition={{ delay: 1.1, duration: 0.8 }}
             >
-              24 · 04 · 2026
+              23 · 04 · 2026
             </motion.p>
           </div>
         </Section>
@@ -109,54 +106,82 @@ const WeddingInvitation = () => {
         {/* Quote */}
         <Section className="text-center">
           <motion.p
-            className="font-elegant text-lg italic text-foreground leading-relaxed"
+            className="font-elegant text-xl italic text-foreground leading-relaxed"
             {...fadeUp}
           >
-            "Juntos ante la ley y el amor,
+            "Con la bendición de Dios en nuestros corazones, 
             <br />
-            celebramos nuestra unión"
+            celebramos la unión de nuestras almas"
           </motion.p>
-          <motion.p
-            className="font-elegant text-sm text-muted-foreground mt-4 italic"
-            {...fadeUp}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            Lo que la ley une, el amor lo eterniza
-          </motion.p>
-        </Section>
-
-        <Divider />
-
-        {/* Countdown */}
-        <Section className="text-center">
-          <h2 className="font-display text-xl font-semibold text-foreground mb-2">Faltan</h2>
-          <CountdownTimer />
         </Section>
 
         <Divider />
 
         {/* Ceremony details */}
-        <Section className="text-center space-y-8">
-          <div>
+        <Section className="text-center">
+          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
               <Calendar className="w-5 h-5 text-olive" />
             </div>
             <h2 className="font-display text-xl font-semibold text-foreground mb-1">Ceremonia Civil</h2>
-            <p className="font-elegant text-lg text-muted-foreground">Viernes, 24 de Abril de 2026</p>
-          </div>
+            <p className="font-elegant text-lg text-muted-foreground mb-6">Jueves, 23 de Abril de 2026</p>
 
-          <div>
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-              <Clock className="w-5 h-5 text-olive" />
-            </div>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-1">10:00 am</h2>
-          </div>
-
-          <div>
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
               <MapPin className="w-5 h-5 text-olive" />
             </div>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-1">Eco Boutique Plaza Hotel</h2>
+            <h2 className="font-display text-lg font-semibold text-foreground mb-1">Registro Civil Catedral</h2>
+            <p className="font-elegant text-sm text-muted-foreground mb-1">(Casa de Eustoquio Gómez)</p>
+            <p className="font-elegant text-base text-muted-foreground mb-3">
+              Carrera 17 entre Calles 25 y 26
+              <br />
+              Barquisimeto, Lara
+            </p>
+            <motion.a
+              href="https://maps.app.goo.gl/AMDVQxThgBXjaXr59"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-primary text-primary font-body text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-all mb-6"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <MapPin className="w-4 h-4" />
+              Ver ubicación
+              <ExternalLink className="w-3 h-3" />
+            </motion.a>
+
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+              <Clock className="w-5 h-5 text-olive" />
+            </div>
+            <h2 className="font-display text-lg font-semibold text-foreground mb-1">1:30 pm</h2>
+          </div>
+        </Section>
+
+        <Divider />
+
+        {/* Dress code */}
+        <Section className="text-center">
+          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+              <Shirt className="w-5 h-5 text-olive" />
+            </div>
+            <h2 className="font-display text-xl font-semibold text-foreground mb-2">Código de vestimenta</h2>
+            <p className="font-script text-3xl text-olive">Semi-formal</p>
+            <p className="font-elegant text-muted-foreground mt-2">
+              Sugerimos tonos neutros y elegantes. Evitar el color blanco y beige, reservados para los novios
+            </p>
+          </div>
+        </Section>
+
+        <Divider />
+
+        {/* Seating Chart */}
+        <Section className="text-center">
+          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+              <Martini className="w-5 h-5 text-olive" />
+            </div>
+            <h2 className="font-display text-xl font-semibold text-foreground mb-6">Almuerzo de Celebración</h2>
+            <h2 className="font-display font-semibold text-foreground mb-1">Eco Boutique Plaza Hotel</h2>
             <p className="font-elegant text-base text-muted-foreground mb-3">
               Carrera 17 entre calles 22 y 23
               <br />
@@ -174,49 +199,38 @@ const WeddingInvitation = () => {
               Ver ubicación
               <ExternalLink className="w-3 h-3" />
             </motion.a>
-          </div>
-        </Section>
 
-        <Divider />
-
-        {/* Dress code */}
-        <Section className="text-center">
-          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-              <Shirt className="w-5 h-5 text-olive" />
+            <div className="mt-8">
+              <SeatingChart />
             </div>
-            <h2 className="font-display text-xl font-semibold text-foreground mb-2">Código de vestimenta</h2>
-            <p className="font-script text-3xl text-olive">Semi-formal</p>
-            <p className="font-elegant text-sm text-muted-foreground mt-2">
-              Sugerimos tonos neutros y elegantes
-            </p>
           </div>
-        </Section>
-
-        <Divider />
-
-        {/* Seating Chart */}
-        <Section className="text-center">
-          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-            <Martini className="w-5 h-5 text-olive" />
-          </div>
-          <h2 className="font-display text-2xl font-semibold text-foreground mb-6">Almuerzo de Celebración</h2>
-          <SeatingChart />
         </Section>
 
         <Divider />
 
         {/* RSVP */}
         <Section className="">
-          <div className="bg-olive-dark rounded-2xl p-6 shadow-lg">
-            <h2 className="font-display text-2xl font-semibold text-cream text-center mb-2">Confirmación</h2>
-            <p className="font-elegant text-sm text-cream/80 text-center mb-6">
-              Agradecemos confirmar tu asistencia antes del 10 de abril
-            </p>
-            <div className="bg-cream rounded-xl p-5">
-              <RSVPForm />
+          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+              <Calendar1 className="w-5 h-5 text-olive" />
             </div>
+            <h2 className="font-display text-xl font-semibold text-foreground text-center mb-2">Confirma tu asistencia</h2>
+            <p className="font-elegant text-sm text-muted-foreground mt-2 text-center">
+              Por favor, confirma tu asistencia antes del <span className="text-bold text-lg text-olive"> 10 de abril </span>
+              para que podamos organizar todo perfectamente.
+            </p>
+            <p className="font-elegant font-bold text-sm text-olive mt-4 text-center">
+              Esperamos contar con tu presencia
+            </p>
           </div>
+        </Section>
+
+        <Divider />
+
+        {/* Countdown */}
+        <Section className="text-center">
+          <h2 className="font-display text-xl font-semibold text-foreground mb-2">Faltan</h2>
+          <CountdownTimer />
         </Section>
 
         {/* Footer */}
@@ -225,13 +239,10 @@ const WeddingInvitation = () => {
           {...fadeUp}
         >
           <p className="font-script text-4xl text-cream mb-2">Jimerson & Katerine</p>
-          <p className="font-elegant text-sm text-cream/70">24 de Abril de 2026 · Barquisimeto</p>
+          <p className="font-elegant text-sm text-cream/70">23 de Abril de 2026 · Barquisimeto</p>
           <div className="mt-4 flex justify-center">
             <Heart className="w-5 h-5 text-white" fill="hsl(0, 0.00%, 100.00%)" />
           </div>
-          <p className="font-elegant text-xs text-cream/50 mt-4">
-            ¡Esperamos contar con tu presencia!
-          </p>
         </motion.footer>
       </div>
     </>

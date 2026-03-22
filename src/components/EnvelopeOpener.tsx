@@ -27,12 +27,12 @@ const EnvelopeOpener = ({ isOpen, onOpen }: EnvelopeOpenerProps) => {
             <motion.img
               src={envelopeImg}
               alt="Sobre de invitación"
-              className="w-56 h-56 object-contain drop-shadow-2xl"
+              className="w-72 h-72 object-contain drop-shadow-2xl"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.p
-              className="mt-6 font-script text-3xl text-cream tracking-wide"
+              className="mt-6 font-elegant text-3xl text-cream tracking-wide"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}

@@ -14,10 +14,11 @@ const GUESTS = [
   { seat: 9, name: "Jendrick" },
   { seat: 10, name: "Hilda" },
   { seat: 11, name: "Nena" },
-  { seat: 12, name: "Jickson" },
+  { seat: 12, name: "Nataly" },
   { seat: 13, name: "Diosangel" },
-  { seat: 14, name: "Jimmy" },
+  { seat: 14, name: "Jickson" },
   { seat: 15, name: "Lisbeth" },
+  { seat: 16, name: "Jimmy" },
 ];
 
 const SeatingChart = () => {
@@ -25,17 +26,18 @@ const SeatingChart = () => {
 
   const getGuest = (seat: number) => GUESTS.find((g) => g.seat === seat)!;
 
-  // Layout from notebook: left col 7-1 (top to bottom), right col 15-9, seat 8 bottom center
+  // Layout from notebook: left col 7-1 (top to bottom), right col 15-9, seat 8 bottom center, seat 16 top center
   const leftSeats = [7, 6, 5, 4, 3, 2, 1];
   const rightSeats = [15, 14, 13, 12, 11, 10, 9];
   const bottomSeat = 8;
+  const topSeat = 16;
 
-  const SeatButton = ({ seatNum, direction }: { seatNum: number; direction: "left" | "right" | "bottom" }) => {
+  const SeatButton = ({ seatNum, direction }: { seatNum: number; direction: "left" | "right" | "top" | "bottom" }) => {
     const guest = getGuest(seatNum);
     const isSelected = selectedSeat === seatNum;
     const isCouple = seatNum === 1 || seatNum === 8;
 
-    const isHorizontal = direction === "bottom";
+    const isHorizontal = direction === "top" || direction === "bottom";
 
     return (
       <motion.button
@@ -86,6 +88,11 @@ const SeatingChart = () => {
 
   return (
     <div className="flex flex-col items-center gap-4">
+      {/* Top seat (16) */}
+      <div className="flex justify-center">
+        <SeatButton seatNum={topSeat} direction="top" />
+      </div>
+
       <div className="flex items-center gap-2">
         {/* Left column of seats */}
         <div className="flex flex-col items-end gap-2">
