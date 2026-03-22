@@ -7,6 +7,7 @@ import EnvelopeOpener from "./EnvelopeOpener";
 import CountdownTimer from "./CountdownTimer";
 import PetalOverlay from "./PetalOverlay";
 import SeatingChart from "./SeatingChart";
+import WeddingMusic from "./WeddingMusic";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -35,6 +36,7 @@ const WeddingInvitation = () => {
   return (
     <>
       <EnvelopeOpener isOpen={envelopeOpen} onOpen={() => setEnvelopeOpen(true)} />
+      <WeddingMusic isActive={envelopeOpen} />
       {envelopeOpen && <PetalOverlay />}
 
       <div className="min-h-screen bg-cream max-w-md mx-auto relative overflow-hidden">
@@ -83,7 +85,7 @@ const WeddingInvitation = () => {
               Katerine
             </motion.h1>
             <motion.p
-              className="font-display text-lg tracking-widest text-muted-foreground mt-6"
+              className="font-display text-lg tracking-widest text-foreground mt-6"
               {...fadeUp}
               transition={{ delay: 1.1, duration: 0.8 }}
             >
@@ -109,9 +111,17 @@ const WeddingInvitation = () => {
             className="font-elegant text-xl italic text-foreground leading-relaxed"
             {...fadeUp}
           >
-            "Con la bendición de Dios en nuestros corazones, 
+            Mas que un compromiso,
             <br />
-            celebramos la unión de nuestras almas"
+            la promesa de permanecer una vida juntos
+          </motion.p>
+          <motion.p
+            className="font-elegant text-sm italic text-foreground leading-relaxed mt-4"
+            {...fadeUp}
+          >
+            Con la bendición de Dios en nuestros corazones, 
+            <br />
+            celebramos la unión de nuestras almas
           </motion.p>
         </Section>
 
@@ -124,20 +134,20 @@ const WeddingInvitation = () => {
               <Calendar className="w-5 h-5 text-olive" />
             </div>
             <h2 className="font-display text-xl font-semibold text-foreground mb-1">Ceremonia Civil</h2>
-            <p className="font-elegant text-lg text-muted-foreground mb-6">Jueves, 23 de Abril de 2026</p>
+            <p className="font-elegant text-lg text-foreground mb-6">Jueves, 23 de Abril de 2026</p>
 
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
               <MapPin className="w-5 h-5 text-olive" />
             </div>
             <h2 className="font-display text-lg font-semibold text-foreground mb-1">Registro Civil Catedral</h2>
-            <p className="font-elegant text-sm text-muted-foreground mb-1">(Casa de Eustoquio Gómez)</p>
-            <p className="font-elegant text-base text-muted-foreground mb-3">
+            <p className="font-elegant text-sm text-foreground mb-1">(Casa de Eustoquio Gómez)</p>
+            <p className="font-elegant text-base text-foreground mb-3">
               Carrera 17 entre Calles 25 y 26
               <br />
               Barquisimeto, Lara
             </p>
             <motion.a
-              href="https://maps.app.goo.gl/AMDVQxThgBXjaXr59"
+              href="https://maps.app.goo.gl/8CfqfKZbrEDK4hdd9"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-primary text-primary font-body text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-all mb-6"
@@ -158,6 +168,14 @@ const WeddingInvitation = () => {
 
         <Divider />
 
+        {/* Countdown */}
+        <Section className="text-center">
+          <h2 className="font-display text-xl font-semibold text-foreground mb-2">Faltan</h2>
+          <CountdownTimer />
+        </Section>
+
+        <Divider />
+
         {/* Dress code */}
         <Section className="text-center">
           <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
@@ -166,7 +184,7 @@ const WeddingInvitation = () => {
             </div>
             <h2 className="font-display text-xl font-semibold text-foreground mb-2">Código de vestimenta</h2>
             <p className="font-script text-3xl text-olive">Semi-formal</p>
-            <p className="font-elegant text-muted-foreground mt-2">
+            <p className="font-elegant text-foreground mt-2">
               Sugerimos tonos neutros y elegantes. Evitar el color blanco y beige, reservados para los novios
             </p>
           </div>
@@ -182,7 +200,7 @@ const WeddingInvitation = () => {
             </div>
             <h2 className="font-display text-xl font-semibold text-foreground mb-6">Almuerzo de Celebración</h2>
             <h2 className="font-display font-semibold text-foreground mb-1">Eco Boutique Plaza Hotel</h2>
-            <p className="font-elegant text-base text-muted-foreground mb-3">
+            <p className="font-elegant text-base text-foreground mb-3">
               Carrera 17 entre calles 22 y 23
               <br />
               Barquisimeto, Lara
@@ -215,22 +233,13 @@ const WeddingInvitation = () => {
               <Calendar1 className="w-5 h-5 text-olive" />
             </div>
             <h2 className="font-display text-xl font-semibold text-foreground text-center mb-2">Confirma tu asistencia</h2>
-            <p className="font-elegant text-sm text-muted-foreground mt-2 text-center">
-              Por favor, confirma tu asistencia antes del <span className="text-bold text-lg text-olive"> 10 de abril </span>
-              para que podamos organizar todo perfectamente.
+            <p className="font-elegant text-foreground mt-2 text-center">
+              Por favor, confirma tu asistencia antes del <span className="font-bold text-olive">10 de abril</span> para que podamos organizar todo perfectamente.
             </p>
             <p className="font-elegant font-bold text-sm text-olive mt-4 text-center">
               Esperamos contar con tu presencia
             </p>
           </div>
-        </Section>
-
-        <Divider />
-
-        {/* Countdown */}
-        <Section className="text-center">
-          <h2 className="font-display text-xl font-semibold text-foreground mb-2">Faltan</h2>
-          <CountdownTimer />
         </Section>
 
         {/* Footer */}
