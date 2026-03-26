@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { MapPin, Clock, Calendar, Shirt, Heart, ExternalLink, Martini, Calendar1 } from "lucide-react";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MapPin, Clock, Calendar, Shirt, Heart, ExternalLink, Martini, Calendar1, ChevronDown, X, Play } from "lucide-react";
 import couplePhoto from "@/assets/couple-photo.jpg";
 import botanicalFrame from "@/assets/botanical-frame.png";
 import EnvelopeOpener from "./EnvelopeOpener";
@@ -32,6 +32,27 @@ const Divider = () => (
 
 const WeddingInvitation = () => {
   const [envelopeOpen, setEnvelopeOpen] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleOpenVideo = () => {
+    setShowVideo(true);
+  };
+
+  const handleVideoReady = () => {
+    // Try to autoplay when video is ready (muted autoplay works on mobile)
+    const playPromise = videoRef.current?.play();
+    if (playPromise) {
+      playPromise.catch(() => {
+        // Autoplay was prevented, user will need to tap play button
+      });
+    }
+  };
+
+  const handleCloseVideo = () => {
+    videoRef.current?.pause();
+    setShowVideo(false);
+  };
 
   return (
     <>
@@ -96,17 +117,51 @@ const WeddingInvitation = () => {
 
         {/* Hero photo */}
         <motion.div
-          className="mx-6 rounded-2xl overflow-hidden shadow-xl"
+          className="mx-6 rounded-2xl overflow-hidden shadow-xl relative group cursor-pointer"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
+          onClick={handleOpenVideo}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
         >
           <img src={couplePhoto} alt="Jimerson & Katerine" className="w-full h-72 object-cover" />
+          {/* Play button overlay - always visible on mobile, hover on desktop */}
+          <motion.div
+            className="absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+            initial={false}
+          >
+            <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+              <Play className="w-5 h-5 text-olive-dark ml-0.5" fill="currentColor" />
+            </div>
+          </motion.div>
+          {/* Hint text - always visible on mobile */}
+          <div className="absolute bottom-3 left-0 right-0 text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+            <span className="text-white text-xs font-medium bg-black/60 px-4 py-1.5 rounded-full">
+              Toca para ver el video
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="flex justify-center mt-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+        >
+          <motion.div
+            className="w-8 h-8 rounded-full bg-olive/20 flex items-center justify-center"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          >
+            <ChevronDown className="w-5 h-5 text-olive" />
+          </motion.div>
         </motion.div>
 
         {/* Quote */}
-        <Section className="text-center">
+        <Section className="text-center py-6">
           <motion.p
             className="font-elegant text-xl italic text-foreground leading-relaxed"
             {...fadeUp}
@@ -254,6 +309,55 @@ const WeddingInvitation = () => {
           </div>
         </motion.footer>
       </div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {showVideo && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={handleCloseVideo}
+          >
+            <motion.div
+              className="relative w-full max-w-lg"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button */}
+              <button
+                onClick={handleCloseVideo}
+                className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+                {/* Video */}
+              <div className="rounded-xl overflow-hidden bg-black shadow-2xl">
+                <video
+                  ref={videoRef}
+                  src="./video.mp4"
+                  className="w-full h-auto max-h-[70vh]"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  muted
+                  onCanPlay={handleVideoReady}
+                />
+              </div>
+              
+              <p className="text-white/70 text-center mt-4 text-sm font-elegant">
+                Click fuera del video para cerrar
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
